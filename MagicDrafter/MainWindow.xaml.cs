@@ -69,8 +69,8 @@ namespace MagicDrafter
 
         private void buttonStartDraft_Click(object sender, RoutedEventArgs e)
         {
-            ivDraft.Start();
-            matchViewRound1.matchDataGrid.SelectedIndex = 0;
+            if(ivDraft.Start())
+                matchViewRound1.matchDataGrid.SelectedIndex = 0;
         }
 
         private void textBoxPlayerName_KeyDown(object sender, KeyEventArgs e)

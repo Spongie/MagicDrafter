@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using System.Windows;
 
 namespace MagicDrafter
 {
@@ -65,8 +66,14 @@ namespace MagicDrafter
             return players;
         }
 
-        internal void Start()
+        internal bool Start()
         {
+            if(ivPlayers.Count < 5)
+            {
+                MessageBox.Show("Draft must contain atleast 5 people", "Error!");
+                return false;
+            }
+
             ivRounds = new ObservableCollection<Round>();
             ivAllMatches = new List<Match>();
 
@@ -74,6 +81,7 @@ namespace MagicDrafter
                 ivPlayers.Add(new Player("Bye"));
 
             StartNextRound();
+            return true;
         }
 
         public void StartNextRound()

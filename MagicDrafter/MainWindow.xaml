@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MagicDrafter"
         mc:Ignorable="d"
-        Title="Magic Drafter" Height="350" Width="525">
+        Title="Magic Drafter" Height="350" Width="525" WindowStyle="ToolWindow">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="44*"/>
@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
         <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="3">
             <TabItem Header="Draft">
-                <Grid Background="#FFE5E5E5">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="264*"/>
                         <ColumnDefinition Width="247*"/>
@@ -24,7 +24,7 @@
                         <RowDefinition Height="72*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal">
-                        <Label x:Name="label" Content="Name"/>
+                        <Label x:Name="label" Content="Name:"/>
                         <TextBox x:Name="textBoxPlayerName" TextWrapping="Wrap" Text="" Width="120" Margin="5, 3, 0, 3" FontFamily="Courier New" FontSize="13.333" KeyDown="textBoxPlayerName_KeyDown"/>
                         <Button x:Name="button" Content="Add Player" HorizontalAlignment="Left" Margin="5, 3,0,3" VerticalAlignment="Top" Width="76" Click="button_AddPlayerClick"/>
                     </StackPanel>
@@ -33,7 +33,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Round 1" Name="tabRound1" IsEnabled="False">
-                <Grid Background="#FFE5E5E5">
+                <Grid>
                     <local:MatchView x:Name="matchViewRound1"/>
                 </Grid>
             </TabItem>
@@ -48,7 +48,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Result" Name="tabResult" IsEnabled="False">
-                <Grid Background="#FFE5E5E5" Margin="0">
+                <Grid>
                     <local:DraftResult DataContext="{Binding}" x:Name="draftResult" VerticalAlignment="Stretch" Margin="0"/>
                 </Grid>
             </TabItem>
