@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicDrafter", "MagicDrafter\MagicDrafter.csproj", "{AFCFFF1A-5A43-401B-9A82-A20F6E41B2ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{F2DBD0C8-64A2-4C51-AD09-5623F1D82B84}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFCFFF1A-5A43-401B-9A82-A20F6E41B2ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFCFFF1A-5A43-401B-9A82-A20F6E41B2ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFCFFF1A-5A43-401B-9A82-A20F6E41B2ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFCFFF1A-5A43-401B-9A82-A20F6E41B2ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2DBD0C8-64A2-4C51-AD09-5623F1D82B84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2DBD0C8-64A2-4C51-AD09-5623F1D82B84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2DBD0C8-64A2-4C51-AD09-5623F1D82B84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2DBD0C8-64A2-4C51-AD09-5623F1D82B84}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

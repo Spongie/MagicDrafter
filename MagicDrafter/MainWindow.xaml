@@ -1,0 +1,57 @@
+﻿<Window x:Class="MagicDrafter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MagicDrafter"
+        mc:Ignorable="d"
+        Title="Magic Drafter" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="44*"/>
+            <RowDefinition Height="192*"/>
+            <RowDefinition Height="83*"/>
+        </Grid.RowDefinitions>
+        <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="3">
+            <TabItem Header="Draft">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="264*"/>
+                        <ColumnDefinition Width="247*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="7*"/>
+                        <RowDefinition Height="72*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <Label x:Name="label" Content="Name"/>
+                        <TextBox x:Name="textBoxPlayerName" TextWrapping="Wrap" Text="" Width="120" Margin="5, 3, 0, 3" FontFamily="Courier New" FontSize="13.333" KeyDown="textBoxPlayerName_KeyDown"/>
+                        <Button x:Name="button" Content="Add Player" HorizontalAlignment="Left" Margin="5, 3,0,3" VerticalAlignment="Top" Width="76" Click="button_AddPlayerClick"/>
+                    </StackPanel>
+                    <ListBox x:Name="listBoxPlayers" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" ItemsSource="{Binding Players}" FontSize="16" FontFamily="Courier New"/>
+                    <Button x:Name="buttonStartDraft" Content="Start Draft" Grid.Column="1" HorizontalAlignment="Left" Margin="162,2,0,0" VerticalAlignment="Top" Width="75" Click="buttonStartDraft_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Round 1" Name="tabRound1" IsEnabled="False">
+                <Grid Background="#FFE5E5E5">
+                    <local:MatchView x:Name="matchViewRound1"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Round 2" Name="tabRound2" IsEnabled="False">
+                <Grid Background="#FFE5E5E5">
+                    <local:MatchView x:Name="matchViewRound2"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Round 3" Name="tabRound3" IsEnabled="False">
+                <Grid Background="#FFE5E5E5">
+                    <local:MatchView x:Name="matchViewRound3"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Result" Name="tabResult" IsEnabled="False">
+                <Grid Background="#FFE5E5E5" Margin="0">
+                    <local:DraftResult DataContext="{Binding}" x:Name="draftResult" VerticalAlignment="Stretch" Margin="0"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
