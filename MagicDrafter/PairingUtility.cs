@@ -8,17 +8,24 @@ namespace MagicDrafter
         public static int GetPlayerPoints(Player piPlayer, List<Match> piMatches)
         {
             int wins = 0;
+            int draws = 0;
             var playersMatches = piMatches.Where(p => p.Players.Contains(piPlayer));
 
             foreach (Match match in playersMatches)
             {
+                if (match.IsDraw())
+                {
+                    draws++;
+                    continue;
+                }
+
                 Player player = match.GetWinningPlayer();
 
                 if (player == piPlayer)
                     wins++;
             }
-            piPlayer.Points = wins * 3;
-            return wins * 3;
+            piPlayer.Points = (wins * 3) + (draws * 1);
+            return piPlayer.Points;
         }
 
         public static float GetPlayerOpponentWinPercent(Player piPlayer, List<Match> piMatches)

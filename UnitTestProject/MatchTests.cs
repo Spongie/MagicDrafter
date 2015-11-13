@@ -91,5 +91,29 @@ namespace UnitTestProject
             Assert.AreEqual(2, match.GetLossesOfPlayer(player1));
             Assert.AreEqual(1, match.GetLossesOfPlayer(player2));
         }
+
+        [TestMethod]
+        public void IsDraw_EqualScore_true()
+        {
+            var player1 = new Player("dsa");
+            var player2 = new Player("dsaasda");
+
+            var match = new Match(player1, player2);
+            match.RegisterScore(1, 1);
+
+            Assert.IsTrue(match.IsDraw());
+        }
+
+        [TestMethod]
+        public void IsDraw_UnEqualScore_false()
+        {
+            var player1 = new Player("dsa");
+            var player2 = new Player("dsaasda");
+
+            var match = new Match(player1, player2);
+            match.RegisterScore(1, 2);
+
+            Assert.IsFalse(match.IsDraw());
+        }
     }
 }

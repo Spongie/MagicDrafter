@@ -70,6 +70,11 @@ namespace MagicDrafter
             Reported = true;
         }
 
+        public bool IsDraw()
+        {
+            return Score[0] == Score[1];
+        }
+
         public Player GetWinningPlayer()
         {
             int winningIndex = Score.IndexOf(Score.Max());

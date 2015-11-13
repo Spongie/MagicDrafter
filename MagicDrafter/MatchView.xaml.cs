@@ -72,6 +72,24 @@ namespace MagicDrafter
             RefreshItemSource();
         }
 
+        private void Button_Click11(object sender, RoutedEventArgs e)
+        {
+            TheDraft.SelectedMatch.RegisterScore(1, 1);
+            RefreshItemSource();
+        }
+
+        private void Button_Click10(object sender, RoutedEventArgs e)
+        {
+            TheDraft.SelectedMatch.RegisterScore(1, 0);
+            RefreshItemSource();
+        }
+
+        private void Button_Click01(object sender, RoutedEventArgs e)
+        {
+            TheDraft.SelectedMatch.RegisterScore(0, 1);
+            RefreshItemSource();
+        }
+
         private void buttonViewResult_Click(object sender, RoutedEventArgs e)
         {
             TheDraft.FinishDraft();

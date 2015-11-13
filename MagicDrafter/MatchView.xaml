@@ -20,10 +20,13 @@
                 <Label x:Name="Player1" Content="{Binding Players[0]}" Margin="5"/>
                 <Label x:Name="Player2" Content="{Binding Players[1]}" Margin="5"/>
             </StackPanel>
-            <Button Content="2&#xA;&#xA;0" Width="30" Height="60" Margin="5,-5,5,5" Click="Button_Click20"/>
+            <Button Content="2&#xA;&#xA;0"   Width="30" Height="60" Margin="5,-5,5,5" Click="Button_Click20"/>
             <Button Content="2&#x0a;&#x0a;1" Width="30" Height="60" Margin="5,-5,5,5" Click="Button_Click_21"/>
             <Button Content="0&#x0a;&#x0a;2" Width="30" Height="60" Margin="5,-5,5,5" Click="Button_Click_02"/>
             <Button Content="1&#x0a;&#x0a;2" Width="30" Height="60" Margin="5,-5,5,5" Click="Button_Click_12"/>
+            <Button Content="1&#x0a;&#x0a;1" Width="30" Height="60" Margin="5,-5,5,5" Click="Button_Click11"/>
+            <Button Content="0&#x0a;&#x0a;1" Width="30" Height="60" Margin="5,-5,5,5" Click="Button_Click01"/>
+            <Button Content="1&#x0a;&#x0a;0" Width="30" Height="60" Margin="5,-5,5,5" Click="Button_Click10"/>
         </StackPanel>
     </Grid>
 </UserControl>
