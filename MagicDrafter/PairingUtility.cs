@@ -5,6 +5,14 @@ namespace MagicDrafter
 {
     public class PairingUtility
     {
+        public static void SetPlayerTieBreakers(Player player, List<Match> matches)
+        {
+            player.Points = GetPlayerPoints(player, matches);
+            player.OpponentWinPercent = GetPlayerOpponentWinPercent(player, matches);
+            player.GameWinPercent = GetPlayerGameWinPercent(player, matches);
+            player.OpponentGameWinPercent = GetOpponentsGameWinPercent(player, matches);
+        }
+
         public static int GetPlayerPoints(Player piPlayer, List<Match> piMatches)
         {
             int wins = 0;
@@ -24,15 +32,51 @@ namespace MagicDrafter
                 if (player == piPlayer)
                     wins++;
             }
-            piPlayer.Points = (wins * 3) + (draws * 1);
-            return piPlayer.Points;
+            
+            return (wins * 3) + (draws * 1);
+        }
+
+        private static float GetOpponentsGameWinPercent(Player player, List<Match> matches)
+        {
+            var playersMatches = matches.Where(p => p.Players.Contains(player));
+            float wins = 0;
+            float losses = 0;
+
+            foreach (Match match in playersMatches)
+            {
+                Player opponent = match.GetOpponentOf(player);
+                var opponentsMatches = matches.Where(p => p.Players.Contains(opponent));
+
+                foreach (Match opponentMatch in opponentsMatches)
+                {
+                    wins += opponentMatch.GetWinsOfPlayer(opponent);
+                    losses += opponentMatch.GetLossesOfPlayer(opponent);
+                }
+            }
+
+            return wins / (wins + losses);
+        }
+
+        private static float GetPlayerGameWinPercent(Player player, List<Match> matches)
+        {
+            float wins = 0;
+            float losses = 0;
+            var playersMatches = matches.Where(p => p.Players.Contains(player));
+
+            foreach (Match match in playersMatches)
+            {
+                wins += match.GetWinsOfPlayer(player);
+                losses += match.GetLossesOfPlayer(player);
+            }
+
+            return wins / (wins + losses);
         }
 
         public static float GetPlayerOpponentWinPercent(Player piPlayer, List<Match> piMatches)
         {
             var playersMatches = piMatches.Where(p => p.Players.Contains(piPlayer));
-            int wins = 0;
-            int losses = 0;
+            float wins = 0;
+            float losses = 0;
 
             foreach (Match match in playersMatches)
             {
@@ -45,10 +89,8 @@ namespace MagicDrafter
                     losses += opponentMatch.GetLossesOfPlayer(opponent);
                 }
             }
-
-            piPlayer.TieBreaker = (float)wins / (wins + losses);
                 
-            return (float)wins / (wins + losses);
+            return wins / (wins + losses);
         }
 
         public static bool IsMatchValid(List<Match> piMatches, Match piNewMatch)
@@ -58,7 +100,13 @@ namespace MagicDrafter
 
         public static List<Player> GetPlayersOrdered(List<Match> piPreviousMatches, List<Player> piPlayers)
         {
-            List<Player> players = piPlayers.OrderByDescending(p => PairingUtility.GetPlayerPoints(p, piPreviousMatches)).ThenByDescending(p => PairingUtility.GetPlayerOpponentWinPercent(p, piPreviousMatches)).ToList();
+            foreach (Player player in piPlayers)
+            {
+                SetPlayerTieBreakers(player, piPreviousMatches);
+            }
+
+            List<Player> players = piPlayers.OrderByDescending(player => player.Points)
+                .ThenByDescending(player => player.OpponentWinPercent).ThenBy(player => player.GameWinPercent).ThenBy(player => player.OpponentGameWinPercent).ToList();
 
             return SetByeToLastPlayer(players);
         }

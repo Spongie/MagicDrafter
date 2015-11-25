@@ -15,21 +15,20 @@ namespace MagicDrafter
         {
             ivDraft = new Draft();
             InitializeComponent();
-            ivDraft.OnNewRoundStart += IvDraft_OnNewRoundStart;
-            ivDraft.OnDraftFinished += IvDraft_OnDraftFinished;
+            ivDraft.OnNewRoundStart += OnNewRoundStart;
+            ivDraft.OnRoundFinished += OnRoundFinished;
 
             DataContext = ivDraft;
         }
 
-        private void IvDraft_OnDraftFinished(object sender, EventArgs e)
+        private void OnRoundFinished(object sender, EventArgs e)
         {
-            tabControl.SelectedIndex++;
             tabResult.IsEnabled = true;
             draftResult.DataContext = ivDraft;
             draftResult.SetPlayers(ivDraft.getFinalStandings());
         }
 
-        private void IvDraft_OnNewRoundStart(object sender, EventArgs e)
+        private void OnNewRoundStart(object sender, EventArgs e)
         {
             tabControl.SelectedIndex++;
 

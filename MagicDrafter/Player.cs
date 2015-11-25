@@ -65,7 +65,9 @@ namespace MagicDrafter
         }
 
         public int Points { get; set; }
-        public float TieBreaker { get; set; }
+        public float OpponentWinPercent { get; set; }
+        public float GameWinPercent { get; set; }
+        public float OpponentGameWinPercent { get; set; }
         public int Rank { get; set; }
 
         public override int GetHashCode()

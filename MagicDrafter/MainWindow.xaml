@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MagicDrafter"
         mc:Ignorable="d"
-        Title="Magic Drafter" Height="350" Width="525" WindowStyle="ToolWindow">
+        Title="Magic Drafter" Height="350" Width="550" WindowStyle="ToolWindow">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="44*"/>
@@ -47,7 +47,7 @@
                     <local:MatchView x:Name="matchViewRound3"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Result" Name="tabResult" IsEnabled="False">
+            <TabItem Header="Standings" Name="tabResult" IsEnabled="False">
                 <Grid>
                     <local:DraftResult DataContext="{Binding}" x:Name="draftResult" VerticalAlignment="Stretch" Margin="0"/>
                 </Grid>

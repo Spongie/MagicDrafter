@@ -13,7 +13,7 @@ namespace MagicDrafter
         private ObservableCollection<Player> ivPlayers;
         private List<Match> ivAllMatches;
         public event EventHandler OnNewRoundStart;
-        public event EventHandler OnDraftFinished;
+        public event EventHandler OnRoundFinished;
 
         public Draft()
         {
@@ -80,12 +80,15 @@ namespace MagicDrafter
             if (ivPlayers.Count % 2 != 0)
                 ivPlayers.Add(new Player("Bye"));
 
-            StartNextRound();
+            StartNextRound(false);
             return true;
         }
 
-        public void StartNextRound()
+        public void StartNextRound(bool sendRoundFinished = true)
         {
+            if(sendRoundFinished)
+                OnRoundFinished(this, new EventArgs());
+
             if(ivRounds.Any())
                 ivAllMatches.AddRange(ivRounds.Last().Matches);
 
@@ -97,7 +100,7 @@ namespace MagicDrafter
         public void FinishDraft()
         {
             ivAllMatches.AddRange(ivRounds.Last().Matches);
-            OnDraftFinished(this, new EventArgs());
+            OnRoundFinished(this, new EventArgs());
         }
 
         internal void RegisterScore(int player1Score, int player2Score)

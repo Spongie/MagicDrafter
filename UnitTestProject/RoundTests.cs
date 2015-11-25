@@ -70,8 +70,42 @@ namespace UnitTestProject
             round.RoundPair(matches, players);
 
             Assert.IsTrue(round.Matches.Any(m => m.Players.Contains(players[2]) && m.Players.Contains(players[3])));
-            //Assert.IsTrue(round.Matches.Any(m => m.Players.Contains(players[0]) && m.Players.Contains(players[5])));
-            //Assert.IsTrue(round.Matches.Any(m => m.Players.Contains(players[1]) && m.Players.Contains(players[3])));
+            Assert.IsTrue(round.Matches.Any(m => m.Players.Contains(players[0]) && m.Players.Contains(players[5])));
+            Assert.IsTrue(round.Matches.Any(m => m.Players.Contains(players[1]) && m.Players.Contains(players[4])));
+        }
+
+        [TestMethod]
+        public void RoundPair_8Players_NoDraw()
+        {
+            List<Player> players = Get8PlayerPool();
+
+            var matches = new List<Match>()
+            {
+                new Match(players[0], players[1]),
+                new Match(players[2], players[3]),
+                new Match(players[4], players[5]),
+                new Match(players[6], players[7]),
+                new Match(players[0], players[2]),
+                new Match(players[4], players[6]),
+                new Match(players[1], players[3]),
+                new Match(players[5], players[7]),
+            };
+
+            matches[0].Score = new List<int>() { 2, 0 };
+            matches[1].Score = new List<int>() { 2, 0 };
+            matches[2].Score = new List<int>() { 2, 0 };
+            matches[3].Score = new List<int>() { 2, 0 };
+
+            matches[4].Score = new List<int>() { 2, 0 };
+            matches[5].Score = new List<int>() { 2, 0 };
+            matches[6].Score = new List<int>() { 2, 0 };
+            matches[7].Score = new List<int>() { 2, 0 };
+
+            var round = new Round();
+            round.RoundPair(matches, players);
+
+            Assert.IsTrue(round.Matches.Any(m => m.Players.Contains(players[0]) && m.Players.Contains(players[4])));
+            Assert.IsTrue(round.Matches.Any(m => m.Players.Contains(players[3]) && m.Players.Contains(players[7])));
         }
 
         [TestMethod]
