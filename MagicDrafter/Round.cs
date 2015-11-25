@@ -33,37 +33,128 @@ namespace MagicDrafter
         {
             List<Player> players;
             bool broken = false;
-
+            
             if (piOffset == 0)
                 players = PairingUtility.GetPlayersOrdered(piPreviousMatches, piPlayers);
             else
                 players = PairingUtility.GetPlayersSortedSpecifiedFirst(piPlayers, piPlayers[piOffset]);
 
-            for (int i = 0; i + 1 < players.Count; i ++)
+            var playersByPoints = new Dictionary<int, List<Player>>();
+
+            foreach (var player in players)
             {
-                if (PlayerHasMatch(players[i]))
-                    continue;
-
-                int opponentOffset = 1;
-                Match match = new Match(players[i], players[i + opponentOffset]);
-
-                while(!PairingUtility.IsMatchValid(piPreviousMatches, match) || PlayerHasMatch(players[i + opponentOffset]))
+                if (playersByPoints.ContainsKey(player.Points))
+                    playersByPoints[player.Points].Add(player);
+                else
                 {
-                    opponentOffset++;
-                    if(i + opponentOffset >= players.Count)
-                    {
-                        Matches.Clear();
-                        RoundPair(piPreviousMatches, players, i);
-                        broken = true;
-                        break;
-                    }
-                    match = new Match(players[i], players[i + opponentOffset]);
+                    playersByPoints.Add(player.Points, new List<Player>());
+                    playersByPoints[player.Points].Add(player);
+                }
+            }
+
+            var playersToPairUp = new List<Player>();
+            int lastKey = 0;
+
+            foreach (var key in playersByPoints.Keys.OrderBy(key => key))
+            {
+                playersByPoints[key].AddRange(playersToPairUp);
+                playersToPairUp.Clear();
+
+                if (playersByPoints[key].Count == 1 && key != playersByPoints.Keys.Max())
+                {
+                    playersToPairUp.Add(playersByPoints[key].First());
+                    playersByPoints[key].Clear();
                 }
 
-                if (broken)
-                    break;
+            }
 
-                Matches.Add(match);
+            List<Player> playersDownpaired = new List<Player>();
+
+            foreach (var point in playersByPoints.Keys)
+            {
+
+                foreach (var player in playersDownpaired)
+                {
+                    playersByPoints[point].Add(player);
+                }
+
+                playersDownpaired.Clear();
+
+                players = PairingUtility.GetPlayersOrdered(piPreviousMatches, playersByPoints[point]);
+
+                InnerPairing(piPreviousMatches, players, playersDownpaired);
+            }
+        }
+
+        private void InnerPairing(List<Match> piPreviousMatches, List<Player> players, List<Player> playersDownpaired)
+        {
+            var newMatches = new List<Match>();
+            var playersAdded = new List<string>();
+            bool cancel = false;
+            if (players.Count >= 2)
+            {
+                for (int i = 0; i < players.Count; i++)
+                {
+                    if (PlayerHasMatch(players[i]))
+                        continue;
+
+                    if(i + 1 == players.Count)
+                    {
+                        playersDownpaired.AddRange(players);
+                    }
+
+                    bool addMatch = true;
+                    int opponentOffset = 1;
+                    Match match = new Match(players[i], players[i + opponentOffset]);
+
+                    while (!PairingUtility.IsMatchValid(piPreviousMatches, match) || PlayerHasMatch(players[i + opponentOffset]))
+                    {
+                        opponentOffset++;
+                        if (i + opponentOffset >= players.Count)
+                        {
+                            foreach (var player in players.Where(playr => !playersAdded.Contains(playr.ID)))
+                            {
+                                playersDownpaired.Add(player);
+                            }
+                            if(newMatches.Any())
+                            {
+                                playersDownpaired.Clear();
+                                foreach (var newMatch in newMatches)
+                                {
+                                    Matches.Remove(newMatch);
+                                }
+
+                                InnerPairing(piPreviousMatches, PairingUtility.GetPlayersSortedSpecifiedFirst(players, players[i]), playersDownpaired);
+                                return;
+                            }
+                            addMatch = false;
+                            break;
+                        }
+                        match = new Match(players[i], players[i + opponentOffset]);
+                    }
+
+                    if (addMatch)
+                    {
+                        playersAdded.Add(players[i].ID);
+                        playersAdded.Add(players[i + opponentOffset].ID);
+                        Matches.Add(match);
+                        newMatches.Add(match);
+
+                        if (i + 1 == players.Count)
+                        {
+                            foreach (var player in players.Where(playr => !playersAdded.Contains(playr.ID)))
+                            {
+                                playersDownpaired.Add(player);
+                            }
+                        }
+                    }
+                    else
+                        break;
+                }
+            }
+            else
+            {
+                playersDownpaired.AddRange(players);
             }
         }
 

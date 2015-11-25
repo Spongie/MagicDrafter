@@ -34,8 +34,6 @@ namespace UnitTestProject
             matches[4].Score = new List<int>() { 0, 2 };
             matches[5].Score = new List<int>() { 2, 0 };
 
-            bool r = players[0] == null;
-
             var round = new Round();
 
             round.RoundPair(matches, players);
@@ -43,6 +41,37 @@ namespace UnitTestProject
             Assert.IsTrue(round.Matches.Any(m => m.Players.Contains(players[2]) && m.Players.Contains(players[4])));
             Assert.IsTrue(round.Matches.Any(m => m.Players.Contains(players[0]) && m.Players.Contains(players[5])));
             Assert.IsTrue(round.Matches.Any(m => m.Players.Contains(players[1]) && m.Players.Contains(players[3])));
+        }
+
+        [TestMethod]
+        public void RoundParir_6Players_2ppl2_0_InFinal()
+        {
+            List<Player> players = Get6PlayerPool();
+
+            List<Match> matches = new List<Match>()
+            {
+                new Match(players[2], players[0]),
+                new Match(players[5], players[4]),
+                new Match(players[3], players[1]),
+                new Match(players[5], players[3]),
+                new Match(players[2], players[1]),
+                new Match(players[0], players[4])
+            };
+
+            matches[0].Score = new List<int>() { 2, 0 };
+            matches[1].Score = new List<int>() { 2, 1 };
+            matches[2].Score = new List<int>() { 2, 0 };
+
+            matches[3].Score = new List<int>() { 0, 2 };
+            matches[4].Score = new List<int>() { 2, 0 };
+            matches[5].Score = new List<int>() { 0, 2 };
+
+            var round = new Round();
+            round.RoundPair(matches, players);
+
+            Assert.IsTrue(round.Matches.Any(m => m.Players.Contains(players[2]) && m.Players.Contains(players[3])));
+            //Assert.IsTrue(round.Matches.Any(m => m.Players.Contains(players[0]) && m.Players.Contains(players[5])));
+            //Assert.IsTrue(round.Matches.Any(m => m.Players.Contains(players[1]) && m.Players.Contains(players[3])));
         }
 
         [TestMethod]

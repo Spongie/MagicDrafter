@@ -27,7 +27,7 @@ namespace MagicDrafter
             var players = (List<Player>)listboxResult.DataContext;
             var json = JsonConvert.SerializeObject(players);
 
-            File.WriteAllText(string.Format("Draft_{0}.xml", DateTime.Now.ToShortDateString()), json);
+            File.WriteAllText(string.Format("Draft_{0}_{1}.xml", DateTime.Now.ToShortDateString(), DateTime.Now.Hour), json);
         }
     }
 }
