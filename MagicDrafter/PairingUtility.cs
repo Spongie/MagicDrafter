@@ -49,8 +49,10 @@ namespace MagicDrafter
 
                 foreach (Match opponentMatch in opponentsMatches)
                 {
-                    wins += opponentMatch.GetWinsOfPlayer(opponent);
-                    losses += opponentMatch.GetLossesOfPlayer(opponent);
+                    if (opponentMatch.GetWinningPlayer() == opponent)
+                        wins++;
+                    else
+                        losses++;
                 }
             }
 
