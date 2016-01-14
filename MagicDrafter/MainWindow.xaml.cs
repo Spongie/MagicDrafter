@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace MagicDrafter
@@ -26,32 +27,31 @@ namespace MagicDrafter
             tabResult.IsEnabled = true;
             draftResult.DataContext = ivDraft;
             draftResult.SetPlayers(ivDraft.getFinalStandings());
+
+            if (ivDraft.Done)
+                tabControl.SelectedIndex = tabControl.Items.Count - 1;
         }
 
         private void OnNewRoundStart(object sender, EventArgs e)
         {
-            tabControl.SelectedIndex++;
+            var tabItem = new TabItem();
+            tabItem.Header = "Round " + ivDraft.Rounds.Count;
+            
+            var matchView = new MatchView();
+            matchView.TheDraft = ivDraft;
+            matchView.SetRound(ivDraft.Rounds.Count - 1);
+            matchView.onMatchReported += MatchView_onMatchReported;
 
-            switch (tabControl.SelectedIndex)
-            {
-                case 1:
-                    tabRound1.IsEnabled = true;
-                    matchViewRound1.TheDraft = ivDraft;
-                    matchViewRound1.SetRound(0);
-                    break;
-                case 2:
-                    tabRound2.IsEnabled = true;
-                    matchViewRound2.TheDraft = ivDraft;
-                    matchViewRound2.SetRound(1);
-                    break;
-                case 3:
-                    tabRound3.IsEnabled = true;
-                    matchViewRound3.TheDraft = ivDraft;
-                    matchViewRound3.SetRound(2);
-                    break;
-                default:
-                    break;
-            }
+            tabItem.Content = matchView;
+            tabControl.Items.Insert(tabControl.Items.Count - 1, tabItem);
+            tabControl.SelectedIndex++;
+        }
+
+        private void MatchView_onMatchReported(object sender, EventArgs e)
+        {
+            tabResult.IsEnabled = true;
+            draftResult.DataContext = ivDraft;
+            draftResult.SetPlayers(ivDraft.getTemporaryStandings());
         }
 
         private void button_AddPlayerClick(object sender, RoutedEventArgs e)
@@ -68,8 +68,7 @@ namespace MagicDrafter
 
         private void buttonStartDraft_Click(object sender, RoutedEventArgs e)
         {
-            if(ivDraft.Start())
-                matchViewRound1.matchDataGrid.SelectedIndex = 0;
+            ivDraft.Start();
         }
 
         private void textBoxPlayerName_KeyDown(object sender, KeyEventArgs e)

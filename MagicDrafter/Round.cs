@@ -217,6 +217,19 @@ namespace MagicDrafter
             }
         }
 
+        private bool ivRoundReported;
+
+        public bool RoundReported
+        {
+            get { return ivRoundReported; }
+            set
+            {
+                ivRoundReported = value;
+                FirePropertyChanged();
+            }
+        }
+
+
         public bool IsRoundReported()
         {
             foreach (Match match in Matches)

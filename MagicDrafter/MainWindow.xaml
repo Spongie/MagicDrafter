@@ -29,22 +29,11 @@
                         <Button x:Name="button" Content="Add Player" HorizontalAlignment="Left" Margin="5, 3,0,3" VerticalAlignment="Top" Width="76" Click="button_AddPlayerClick"/>
                     </StackPanel>
                     <ListBox x:Name="listBoxPlayers" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" ItemsSource="{Binding Players}" FontSize="16" FontFamily="Courier New"/>
-                    <Button x:Name="buttonStartDraft" Content="Start Draft" Grid.Column="1" HorizontalAlignment="Left" Margin="162,2,0,0" VerticalAlignment="Top" Width="75" Click="buttonStartDraft_Click"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Round 1" Name="tabRound1" IsEnabled="False">
-                <Grid>
-                    <local:MatchView x:Name="matchViewRound1"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Round 2" Name="tabRound2" IsEnabled="False">
-                <Grid Background="#FFE5E5E5">
-                    <local:MatchView x:Name="matchViewRound2"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Round 3" Name="tabRound3" IsEnabled="False">
-                <Grid Background="#FFE5E5E5">
-                    <local:MatchView x:Name="matchViewRound3"/>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1">
+                        <Label Content="Rounds "/>
+                        <TextBox Text="{Binding Path=NumberOfRounds}" HorizontalAlignment="Stretch" FontFamily="Courier New" FontSize="16" Width="100"/>
+                        <Button x:Name="buttonStartDraft" Content="Start Draft" HorizontalAlignment="Right" Margin="5" VerticalAlignment="Top" Width="75" Click="buttonStartDraft_Click"/>
+                    </StackPanel>
                 </Grid>
             </TabItem>
             <TabItem Header="Standings" Name="tabResult" IsEnabled="False">
