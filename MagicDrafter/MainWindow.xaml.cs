@@ -62,6 +62,12 @@ namespace MagicDrafter
                 return;
             }
 
+            if (ivDraft.Players.Any(player => player.Name == textBoxPlayerName.Text))
+            {
+                MessageBox.Show("A player with the same name is already in the draft!");
+                return;
+            }
+
             ivDraft.Players.Add(new Player(textBoxPlayerName.Text));
             textBoxPlayerName.Clear();
         }
@@ -91,6 +97,8 @@ namespace MagicDrafter
             if (result.HasValue && result.Value)
             {
                 ivDraft.ConfirmManualPairing();
+                buttonStartDraftManual.IsEnabled = false;
+                buttonStartDraft.IsEnabled = false;
             }
         }
     }

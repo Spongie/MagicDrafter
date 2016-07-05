@@ -12,7 +12,7 @@ namespace MagicDrafterCore
         public event EventHandler OnNewRoundStart;
         public event EventHandler OnRoundFinished;
         private int ivNumberOfRounds;
-
+        
         public Draft()
         {
             ivPlayers = new ObservableCollection<Player>();
@@ -65,7 +65,7 @@ namespace MagicDrafterCore
         }
 
         public bool Done { get; set; }
-
+        
         public IEnumerable<Player> GetTemporaryStandings()
         {
             var matches = new List<Match>();
