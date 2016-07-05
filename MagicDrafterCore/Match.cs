@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace MagicDrafter
+namespace MagicDrafterCore
 {
     public class Match : BaseObject
     {

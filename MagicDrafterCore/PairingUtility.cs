@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace MagicDrafter
+namespace MagicDrafterCore
 {
     public class PairingUtility
     {
@@ -29,7 +29,7 @@ namespace MagicDrafter
 
                 Player player = match.GetWinningPlayer();
 
-                if (player == piPlayer)
+                if (Equals(player, piPlayer))
                     wins++;
             }
             

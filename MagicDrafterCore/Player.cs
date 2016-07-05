@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MagicDrafter
+namespace MagicDrafterCore
 {
     public class Player : BaseObject
     {
@@ -13,7 +13,7 @@ namespace MagicDrafter
         {
             Name = piName;
             FixUpperLetterName();
-            ID = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid().ToString();
         }
 
         private void FixUpperLetterName()
@@ -23,7 +23,7 @@ namespace MagicDrafter
 
         private string ivId;
 
-        public string ID
+        public string Id
         {
             get { return ivId; }
             set
@@ -61,7 +61,7 @@ namespace MagicDrafter
                 return false;
             }
 
-            return other.ID == ID;
+            return other.Id == Id;
         }
 
         public int Points { get; set; }

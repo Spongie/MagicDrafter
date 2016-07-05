@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace MagicDrafter
+namespace MagicDrafterCore
 {
     public class BaseObject : INotifyPropertyChanged
     {
@@ -9,8 +9,7 @@ namespace MagicDrafter
 
         protected void FirePropertyChanged([CallerMemberName] string property = "")
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(property));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
     }
 }

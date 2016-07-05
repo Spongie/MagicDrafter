@@ -1,12 +1,9 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Collections.Generic;
-using System;
-using System.Windows;
 
-namespace MagicDrafter
+namespace MagicDrafterCore
 {
     public class Draft : BaseObject
     {
@@ -69,7 +66,7 @@ namespace MagicDrafter
 
         public bool Done { get; set; }
 
-        internal List<Player> getTemporaryStandings()
+        public IEnumerable<Player> GetTemporaryStandings()
         {
             var matches = new List<Match>();
             matches.AddRange(ivAllMatches);
@@ -85,7 +82,7 @@ namespace MagicDrafter
             return players;
         }
 
-        public List<Player> getFinalStandings()
+        public IEnumerable<Player> GetFinalStandings()
         {
             var players = PairingUtility.GetPlayersOrdered(ivAllMatches, ivPlayers.ToList());
 
@@ -97,7 +94,7 @@ namespace MagicDrafter
             return players;
         }
 
-        internal bool Start()
+        public bool Start()
         {
             ivRounds = new ObservableCollection<Round>();
             ivAllMatches = new List<Match>();
@@ -115,21 +112,21 @@ namespace MagicDrafter
                 ivAllMatches.AddRange(ivRounds.Last().Matches);
 
             if (sendRoundFinished)
-                OnRoundFinished(this, new EventArgs());
+                OnRoundFinished?.Invoke(this, new EventArgs());
 
             ivRounds.Add(new Round(ivAllMatches, ivPlayers.ToList(), ivRounds.Count + 1));
 
-            OnNewRoundStart(this, new EventArgs());
+            OnNewRoundStart?.Invoke(this, new EventArgs());
         }
 
         public void FinishDraft()
         {
             Done = true;
             ivAllMatches.AddRange(ivRounds.Last().Matches);
-            OnRoundFinished(this, new EventArgs());
+            OnRoundFinished?.Invoke(this, new EventArgs());
         }
 
-        internal void RegisterScore(int player1Score, int player2Score)
+        public void RegisterScore(int player1Score, int player2Score)
         {
             SelectedMatch.RegisterScore(player1Score, player2Score);
             FirePropertyChanged("SelectedMatch");

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace MagicDrafter
+namespace MagicDrafterCore
 {
     public class Round : BaseObject
     {
@@ -114,7 +114,7 @@ namespace MagicDrafter
                         break;
                         if(newMatches.Any())
                         {
-                            redoPairing(newMatches, piPreviousMatches, players, playersDownpaired, i);
+                            RedoPairing(newMatches, piPreviousMatches, players, playersDownpaired, i);
                             return;
                         }
                         break;
@@ -129,13 +129,13 @@ namespace MagicDrafter
                         opponentOffset++;
                         if (i + opponentOffset >= players.Count)
                         {
-                            foreach (var player in players.Where(playr => !playersAdded.Contains(playr.ID)))
+                            foreach (var player in players.Where(playr => !playersAdded.Contains(playr.Id)))
                             {
                                 playersDownpaired.Add(player);
                             }
                             if(newMatches.Any())
                             {
-                                redoPairing(newMatches, piPreviousMatches, players, playersDownpaired, i);
+                                RedoPairing(newMatches, piPreviousMatches, players, playersDownpaired, i);
                                 return;
                             }
                             addMatch = false;
@@ -146,14 +146,14 @@ namespace MagicDrafter
 
                     if (addMatch)
                     {
-                        playersAdded.Add(players[i].ID);
-                        playersAdded.Add(players[i + opponentOffset].ID);
+                        playersAdded.Add(players[i].Id);
+                        playersAdded.Add(players[i + opponentOffset].Id);
                         Matches.Add(match);
                         newMatches.Add(match);
 
                         if (i + 1 == players.Count)
                         {
-                            foreach (var player in players.Where(playr => !playersAdded.Contains(playr.ID)))
+                            foreach (var player in players.Where(playr => !playersAdded.Contains(playr.Id)))
                             {
                                 playersDownpaired.Add(player);
                             }
@@ -169,7 +169,7 @@ namespace MagicDrafter
             }
         }
 
-        private void redoPairing(List<Match> matchesToUndo, List<Match> previousMatches, List<Player> players, List<Player> playersDownpaired, int indexOfPlayerToPairUp)
+        private void RedoPairing(List<Match> matchesToUndo, List<Match> previousMatches, List<Player> players, List<Player> playersDownpaired, int indexOfPlayerToPairUp)
         {
             playersDownpaired.Clear();
             foreach (var newMatch in matchesToUndo)

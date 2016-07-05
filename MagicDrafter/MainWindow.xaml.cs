@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using MagicDrafterCore;
 
 namespace MagicDrafter
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        private Draft ivDraft;
+        private readonly Draft ivDraft;
 
         public MainWindow()
         {
@@ -26,7 +28,7 @@ namespace MagicDrafter
         {
             tabResult.IsEnabled = true;
             draftResult.DataContext = ivDraft;
-            draftResult.SetPlayers(ivDraft.getFinalStandings());
+            draftResult.SetPlayers(ivDraft.GetFinalStandings().ToList());
 
             if (ivDraft.Done)
                 tabControl.SelectedIndex = tabControl.Items.Count - 1;
@@ -34,11 +36,9 @@ namespace MagicDrafter
 
         private void OnNewRoundStart(object sender, EventArgs e)
         {
-            var tabItem = new TabItem();
-            tabItem.Header = "Round " + ivDraft.Rounds.Count;
-            
-            var matchView = new MatchView();
-            matchView.TheDraft = ivDraft;
+            var tabItem = new TabItem { Header = "Round " + ivDraft.Rounds.Count };
+
+            var matchView = new MatchView { TheDraft = ivDraft };
             matchView.SetRound(ivDraft.Rounds.Count - 1);
             matchView.onMatchReported += MatchView_onMatchReported;
 
@@ -51,7 +51,7 @@ namespace MagicDrafter
         {
             tabResult.IsEnabled = true;
             draftResult.DataContext = ivDraft;
-            draftResult.SetPlayers(ivDraft.getTemporaryStandings());
+            draftResult.SetPlayers(ivDraft.GetTemporaryStandings().ToList());
         }
 
         private void button_AddPlayerClick(object sender, RoutedEventArgs e)

@@ -1,4 +1,4 @@
-﻿using MagicDrafter;
+﻿using MagicDrafterCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTestProject
