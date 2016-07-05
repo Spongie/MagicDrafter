@@ -51,7 +51,7 @@ namespace MagicDrafter
 
         private void buttonStartNextRound_Click(object sender, RoutedEventArgs e)
         {
-            TheDraft.StartNextRound();
+            TheDraft.StartNextRound(false);
             buttonStartNextRound.IsEnabled = false;
 
             TheDraft.Rounds[ivRound].RoundReported = true;

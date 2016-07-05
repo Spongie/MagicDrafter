@@ -105,6 +105,9 @@
     <Compile Include="DraftResult.xaml.cs">
       <DependentUpon>DraftResult.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ManualParingWindow.xaml.cs">
+      <DependentUpon>ManualParingWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MatchView.xaml.cs">
       <DependentUpon>MatchView.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ManualParingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MatchView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

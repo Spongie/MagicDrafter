@@ -94,7 +94,7 @@ namespace MagicDrafterCore
             return players;
         }
 
-        public bool Start()
+        public bool Start(bool piManualPairing)
         {
             ivRounds = new ObservableCollection<Round>();
             ivAllMatches = new List<Match>();
@@ -102,11 +102,11 @@ namespace MagicDrafterCore
             if (ivPlayers.Count % 2 != 0)
                 ivPlayers.Add(new Player("Bye"));
 
-            StartNextRound(false);
+            StartNextRound(piManualPairing);
             return true;
         }
 
-        public void StartNextRound(bool sendRoundFinished = true)
+        public void StartNextRound(bool piManual, bool sendRoundFinished = true)
         {
             if(ivRounds.Any())
                 ivAllMatches.AddRange(ivRounds.Last().Matches);
@@ -114,9 +114,10 @@ namespace MagicDrafterCore
             if (sendRoundFinished)
                 OnRoundFinished?.Invoke(this, new EventArgs());
 
-            ivRounds.Add(new Round(ivAllMatches, ivPlayers.ToList(), ivRounds.Count + 1));
+            ivRounds.Add(new Round(ivAllMatches, ivPlayers.ToList(), ivRounds.Count + 1, !piManual));
 
-            OnNewRoundStart?.Invoke(this, new EventArgs());
+            if (!piManual)
+                OnNewRoundStart?.Invoke(this, new EventArgs());
         }
 
         public void FinishDraft()
@@ -131,6 +132,11 @@ namespace MagicDrafterCore
             SelectedMatch.RegisterScore(player1Score, player2Score);
             FirePropertyChanged("SelectedMatch");
             FirePropertyChanged("Rounds");
+        }
+
+        public void ConfirmManualPairing()
+        {
+            OnNewRoundStart?.Invoke(this, new EventArgs());
         }
     }
 }

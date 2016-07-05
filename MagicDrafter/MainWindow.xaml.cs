@@ -68,7 +68,9 @@ namespace MagicDrafter
 
         private void buttonStartDraft_Click(object sender, RoutedEventArgs e)
         {
-            ivDraft.Start();
+            ivDraft.Start(false);
+            buttonStartDraft.IsEnabled = false;
+            buttonStartDraftManual.IsEnabled = false;
         }
 
         private void textBoxPlayerName_KeyDown(object sender, KeyEventArgs e)
@@ -76,6 +78,19 @@ namespace MagicDrafter
             if (e.Key == Key.Return)
             {
                 button_AddPlayerClick(null, new RoutedEventArgs());
+            }
+        }
+
+        private void ButtonStartDraftManual_OnClick(object sender, RoutedEventArgs e)
+        {
+            ivDraft.Start(true);
+            var pairingWindow = new ManualParingWindow(ivDraft.Rounds.Last());
+
+            var result = pairingWindow.ShowDialog();
+
+            if (result.HasValue && result.Value)
+            {
+                ivDraft.ConfirmManualPairing();
             }
         }
     }

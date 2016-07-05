@@ -9,6 +9,7 @@ namespace MagicDrafterCore
     {
         private int ivRound;
         private ObservableCollection<Match> ivMatches;
+        private ObservableCollection<Player> ivPlayers;
 
         public Round()
         {
@@ -16,15 +17,28 @@ namespace MagicDrafterCore
             RoundNr = 0;
         }
 
-        public Round(List<Match> piPreviousMatches, List<Player> piPlayers, int piRoundNr)
+        public Round(List<Match> piPreviousMatches, List<Player> piPlayers, int piRoundNr) :this(piPreviousMatches, piPlayers, piRoundNr, true)
         {
+            
+        }
+
+        public Round(List<Match> piPreviousMatches, List<Player> piPlayers, int piRoundNr, bool piDoPairings)
+        {
+            Players = new ObservableCollection<Player>();
             Matches = new ObservableCollection<Match>();
             RoundNr = piRoundNr;
 
-            if (piRoundNr == 1)
-                RandomPairing(piPlayers);
+            if (piDoPairings)
+            {
+                if (piRoundNr == 1)
+                    RandomPairing(piPlayers);
+                else
+                    RoundPair(piPreviousMatches, piPlayers);
+            }
             else
-                RoundPair(piPreviousMatches, piPlayers);
+            {
+                Players = new ObservableCollection<Player>(piPlayers);
+            }
 
             FirePropertyChanged("Matches");
         }
@@ -112,12 +126,6 @@ namespace MagicDrafterCore
                     {
                         playersDownpaired.AddRange(players);
                         break;
-                        if(newMatches.Any())
-                        {
-                            RedoPairing(newMatches, piPreviousMatches, players, playersDownpaired, i);
-                            return;
-                        }
-                        break;
                     }
 
                     bool addMatch = true;
@@ -169,6 +177,11 @@ namespace MagicDrafterCore
             }
         }
 
+        public void AddMatch(Player piPlayer1, Player piPlayer2)
+        {
+            Matches.Add(new Match(piPlayer1, piPlayer2));
+        }
+
         private void RedoPairing(List<Match> matchesToUndo, List<Match> previousMatches, List<Player> players, List<Player> playersDownpaired, int indexOfPlayerToPairUp)
         {
             playersDownpaired.Clear();
@@ -213,6 +226,16 @@ namespace MagicDrafterCore
             set
             {
                 ivMatches = value;
+                FirePropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Player> Players
+        {
+            get { return ivPlayers; }
+            set
+            {
+                ivPlayers = value;
                 FirePropertyChanged();
             }
         }
