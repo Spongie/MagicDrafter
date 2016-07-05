@@ -109,7 +109,12 @@ namespace MagicDrafterCore
         public void StartNextRound(bool piManual, bool sendRoundFinished = true)
         {
             if(ivRounds.Any())
+            {
                 ivAllMatches.AddRange(ivRounds.Last().Matches);
+
+                if (ivRounds.Last().IsEmpty())
+                    ivRounds.RemoveAt(ivRounds.Count - 1);
+            }
 
             if (sendRoundFinished)
                 OnRoundFinished?.Invoke(this, new EventArgs());
@@ -137,6 +142,16 @@ namespace MagicDrafterCore
         public void ConfirmManualPairing()
         {
             OnNewRoundStart?.Invoke(this, new EventArgs());
+        }
+
+        public void CancelManualPairing()
+        {
+            foreach (Player player in Rounds.Last().Matches.SelectMany(match => match.Players))
+            {
+                Rounds.Last().Players.Add(player);
+            }
+
+            Rounds.Last().Matches.Clear();
         }
     }
 }

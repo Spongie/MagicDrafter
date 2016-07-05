@@ -51,8 +51,14 @@ namespace MagicDrafter
 
         private void buttonStartNextRound_Click(object sender, RoutedEventArgs e)
         {
-            TheDraft.StartNextRound(false);
+            StartNextRound(false);
+        }
+
+        private void StartNextRound(bool piManualPairing)
+        {
+            TheDraft.StartNextRound(piManualPairing);
             buttonStartNextRound.IsEnabled = false;
+            buttonStartNextRoundManual.IsEnabled = false;
 
             TheDraft.Rounds[ivRound].RoundReported = true;
         }
@@ -62,6 +68,7 @@ namespace MagicDrafter
             matchDataGrid.ItemsSource = null;
             matchDataGrid.ItemsSource = TheDraft.Rounds[ivRound].Matches;
             buttonStartNextRound.IsEnabled = TheDraft.Rounds[ivRound].IsRoundReported();
+            buttonStartNextRoundManual.IsEnabled = TheDraft.Rounds[ivRound].IsRoundReported();
             buttonViewResult.IsEnabled = TheDraft.Rounds[ivRound].IsRoundReported();
         }
 
@@ -152,8 +159,26 @@ namespace MagicDrafter
 
         private void FireMatchReported()
         {
-            if (onMatchReported != null)
-                onMatchReported(this, new EventArgs());
+            onMatchReported?.Invoke(this, new EventArgs());
+        }
+
+        private void ButtonStartNextRoundManual_OnClick(object sender, RoutedEventArgs e)
+        {
+            StartNextRound(true);
+            var pairingWindow = new ManualParingWindow(ivDraft.Rounds.Last());
+
+            var result = pairingWindow.ShowDialog();
+
+            if (result.HasValue && result.Value)
+            {
+                ivDraft.ConfirmManualPairing();
+            }
+            else
+            {
+                buttonStartNextRound.IsEnabled = true;
+                buttonStartNextRoundManual.IsEnabled = true;
+                ivDraft.CancelManualPairing();
+            }
         }
     }
 }

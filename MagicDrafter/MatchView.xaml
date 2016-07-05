@@ -12,9 +12,12 @@
             <RowDefinition Height="176*"/>
             <RowDefinition Height="86*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="buttonStartNextRound" Content="Start Next Round" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" Width="130" Click="buttonStartNextRound_Click" IsEnabled="False"/>
+        <DockPanel>
+            <Button x:Name="buttonStartNextRound" Content="Start Next Round" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" Click="buttonStartNextRound_Click" IsEnabled="False"/>
+            <Button x:Name="buttonStartNextRoundManual" Content="Start Next Round Manual" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" Click="ButtonStartNextRoundManual_OnClick" IsEnabled="False"/>
+            <Button x:Name="buttonViewResult" Content="View Result" HorizontalAlignment="Right" Margin="5,5,0,0" VerticalAlignment="Top" IsEnabled="False" Click="buttonViewResult_Click"/>
+        </DockPanel>
         <ListBox x:Name="matchDataGrid" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" FontFamily="Courier New" FontSize="16" SelectionChanged="dataGrid_SelectionChanged"/>
-        <Button x:Name="buttonViewResult" Content="View Result" HorizontalAlignment="Right" Margin="5,5,0,0" VerticalAlignment="Top" Width="100" IsEnabled="False" Click="buttonViewResult_Click"/>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Name="StackPlayerInfo">
             <StackPanel Orientation="Vertical" Width="100">
                 <Label x:Name="Player1" Content="{Binding Players[0]}" Margin="5"/>

@@ -263,5 +263,10 @@ namespace MagicDrafterCore
 
             return true;
         }
+
+        public bool IsEmpty()
+        {
+            return !Matches.Any();
+        }
     }
 }

@@ -100,6 +100,10 @@ namespace MagicDrafter
                 buttonStartDraftManual.IsEnabled = false;
                 buttonStartDraft.IsEnabled = false;
             }
+            else
+            {
+                ivDraft.CancelManualPairing();
+            }
         }
     }
 }
