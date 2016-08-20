@@ -15,6 +15,7 @@ namespace MagicDrafterCore
         
         public Draft()
         {
+            //Greatest of all comments ever
             ivPlayers = new ObservableCollection<Player>();
             ivNumberOfRounds = 3;
             ivRounds = new ObservableCollection<Round>();
