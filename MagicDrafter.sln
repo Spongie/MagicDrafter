@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicDrafterCore", "MagicDrafterCore\MagicDrafterCore.csproj", "{F3BE584E-E208-464E-B26A-1460ED8AAD91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicDrafterWeb", "MagicDrafterWeb\MagicDrafterWeb.csproj", "{A8789837-254C-423D-8832-954A75EEF90B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F3BE584E-E208-464E-B26A-1460ED8AAD91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3BE584E-E208-464E-B26A-1460ED8AAD91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3BE584E-E208-464E-B26A-1460ED8AAD91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8789837-254C-423D-8832-954A75EEF90B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8789837-254C-423D-8832-954A75EEF90B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8789837-254C-423D-8832-954A75EEF90B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8789837-254C-423D-8832-954A75EEF90B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

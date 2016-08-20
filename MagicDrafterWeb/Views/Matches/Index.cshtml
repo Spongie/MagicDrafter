@@ -1,0 +1,42 @@
+﻿@model MagicDrafterCore.Draft
+
+@if (Model.Rounds.Count == 0)
+{
+    using (Html.BeginForm("StartDraft", "Matches"))
+    {
+        <h2>Draft has not started yet</h2>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <td>
+                            <p>Rounds </p>
+                        </td>
+                        <td>@Html.TextBox("rounds", 3)</td>
+                        <td><input type="submit" value="Start Draft" style="margin-top: 10px"/></td>
+                    </tr>
+                </thead>
+            </table>
+    }
+}
+
+@if (Model.Rounds.Count > 0)
+{
+    <div class="row">
+        <div class="col-md-1">
+            <h1>Matches</h1>
+        </div>
+    </div>
+    foreach (var round in Model.Rounds)
+    {
+        <div class="row">
+            <div class="col-md-1">
+                <h1>Round @round.RoundNr</h1>
+            </div>
+        </div>
+        
+        foreach (var match in round.Matches)
+        {
+            @Html.Partial("MatchSingle", match)
+        }
+    }
+}

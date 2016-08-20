@@ -1,0 +1,32 @@
+﻿@model MagicDrafterCore.Match
+
+<div class="row">
+    @using (Html.BeginForm("ReportMatch", "Matches"))
+    {
+        <div class="row">
+            <div class="col-md-2">
+                <h2>@Model.Players[0].Name</h2>
+            </div>
+            <div class="col-md-1">
+                <h2> VS </h2>
+            </div>
+            <div class="col-md-2">
+                <h2>@Html.DisplayFor(model => model.Players[1].Name)</h2>
+            </div>
+            <div class="col-md-6">
+                <h2>@Model.GetScoreString()</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.Score[0])
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.Score[1])
+            </div>
+            <input type="submit" value="Report" />
+        </div>
+    }
+</div>
+

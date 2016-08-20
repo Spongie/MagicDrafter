@@ -1,0 +1,14 @@
+﻿@model MagicDrafterCore.Draft
+
+<h2>Players</h2>
+
+@foreach (var player in Model.Players)
+{
+    <li>@player.Name</li>
+}
+
+@using (Html.BeginForm("AddPlayer", "DraftSetup"))
+{
+    @Html.TextBox("name");
+    <input type="submit" value="Add Player" />
+}

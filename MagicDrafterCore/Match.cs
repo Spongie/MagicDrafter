@@ -5,6 +5,11 @@ namespace MagicDrafterCore
 {
     public class Match : BaseObject
     {
+        public Match()
+        {
+            
+        }
+
         public Match(params Player[] players)
         {
             Score = new List<int>()
@@ -111,6 +116,11 @@ namespace MagicDrafterCore
                 isReported = value;
                 FirePropertyChanged();
             }
+        }
+
+        public string GetScoreString()
+        {
+            return $" Score {Score[0]} - {Score[1]}";
         }
 
         public override string ToString()

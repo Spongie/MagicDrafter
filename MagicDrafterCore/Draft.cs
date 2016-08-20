@@ -17,6 +17,9 @@ namespace MagicDrafterCore
         {
             ivPlayers = new ObservableCollection<Player>();
             ivNumberOfRounds = 3;
+            ivRounds = new ObservableCollection<Round>();
+            ivAllMatches = new List<Match>();
+
         }
 
         public ObservableCollection<Player> Players
@@ -64,6 +67,16 @@ namespace MagicDrafterCore
             }
         }
 
+        public List<Match> Matches
+        {
+            get { return ivAllMatches; }
+            set
+            {
+                ivAllMatches = value;
+                FirePropertyChanged();
+            }
+        }
+
         public bool Done { get; set; }
         
         public IEnumerable<Player> GetTemporaryStandings()
@@ -96,9 +109,6 @@ namespace MagicDrafterCore
 
         public bool Start(bool piManualPairing)
         {
-            ivRounds = new ObservableCollection<Round>();
-            ivAllMatches = new List<Match>();
-
             if (ivPlayers.Count % 2 != 0)
                 ivPlayers.Add(new Player("Bye"));
 

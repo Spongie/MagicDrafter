@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net451": {
+      "wrappedProject": "../../MagicDrafterCore/MagicDrafterCore.csproj",
+      "bin": {
+        "assembly": "../../MagicDrafterCore/obj/{configuration}/MagicDrafterCore.dll",
+        "pdb": "../../MagicDrafterCore/obj/{configuration}/MagicDrafterCore.pdb"
+      }
+    }
+  }
+}

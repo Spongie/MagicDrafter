@@ -1,0 +1,16 @@
+﻿@model MagicDrafterCore.Draft
+
+<h2>Standings</h2>
+
+@if (!Model.Rounds.Any())
+{
+    <h2>Draft has not started yet</h2>   
+}
+
+@if (Model.Rounds.Any())
+{
+    foreach (var player in Model.GetTemporaryStandings())
+    {
+        <li>@player.Name</li>
+    }
+}
